@@ -1,0 +1,19 @@
+# Statistical Inference Quiz 1
+Muralidhar Areti  
+July 16, 2015
+
+## Introduction
+This is the markdown document that explains the code and results from Quiz 1
+
+```{r q1}
+p_aub = 0.17
+p_a = 0.12
+p_anb = 0.06
+
+p_b = p_aub + p_anb - p_a
+p_b
+```
+
+MAYBE next time I do a quiz I should do it in R Markdown instead of a standard R file! Then I can properly talk about what I'm doing :)
+
+I don't have to write a million functions either, and look! it auto wraps at 80 characters!!
