@@ -1,0 +1,129 @@
+# Statistical Inference Homework 2
+Muralidhar Areti  
+Jul 19, 2015
+
+# Introduction
+
+## Q1
+The probability that a manuscript gets accepted to a journal is 12%. However, given that a revision is asked for, the probability that it gets accepted is 90%. Is it possible that the probability that a manuscript has a revision asked for is 20%?
+
+Hint:  
+* A = Accepted
+* B = Revision
+* P(A) = 0.12
+* P(A|B) = 0.90
+* P(B) = 20
+
+Answer:  
+P(AnB) = P(A|B) * P(B) = 0.9 x 0.2 = 0.18. This is larger than P(A) = 0.12 which is not possible since A n B c A (A intersects B subsets A). 
+
+## Q2
+Suppose that the number of web hits to a particular site are approximately normally distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day. What is the probability that a given day has fewer than 93 hits per day expressed as a percentage to the nearest percentage point?
+
+Hint:   
+Let X be the number of hits per day. We want P(X <= 93) given that X is N(100, 10^2^). 
+
+Answer:  
+```{r}
+round(pnorm(93, mean=100, sd=10) * 100)
+```
+
+## Q3
+Suppose 5% of housing projects have issues with asbestos. The sensitivity of a test for asbestos is 93% and the specificity is 88%. What is the probability that a housing project has no asbestos given a negative test expressed as a percentage to the nearest percentage point?
+
+Hint:  
+* A = asbestos
+* T<sub>+</sub> = test positive
+* T<sub>-</sub> = test negative
+* P(T<sub>+</sub>|A) = 0.93
+* P(T<sub>-</sub>|A^c^) = 0.88
+* P(A) = 0.05
+
+Answer:  
+```{r}
+(0.88 * 0.95) / (0.88 * 0.95 + 0.07 * 0.05)
+```
+
+## Q4
+Suppose that the number of web hits to a particular site are approximately normally distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day. 
+
+### Part 1
+What number of web hits per day represents the number so that only 5% of days have mroe hits? Express your answer to 3 decimal places
+
+Hint:  
+Let x be the number of hits per day. We want x so that F(x) = 0.95
+
+Answer:  
+```{r}
+round(qnorm(0.95, mean=100, sd=10), 3)
+```
+
+or  
+```{r}
+round(qnorm(0.95, mean=100, sd=10, lower.tail=FALSE), 3)
+```
+
+### Part 2
+Imagine taking a random sample fo 50 days. What number of web hits would be the point so that only 5% of averages of 50 days of web traffic have more hits? Express your answer to 3 decimal places
+
+Hint:  
+Let X be the average number of hits per day for 50 randomly sampled days. X is N(100, 10^2^/50)
+
+Answer:  
+```{r}
+round(qnorm(0.95, mean=100, sd=10/sqrt(50)), 3)
+```
+
+or
+```{r}
+round(qnorm(0.95, mean=100, sd=10/sqrt(50), lower.tail=FALSE), 3)
+```
+
+## Q5
+You don't believe that your friend can discern good wine from cheap. Assuming that you are right, in a blind test where you randomize 6 paired varieties (Merlot, Chianti, ...) of cheap and expensive wines.
+
+What is the chance that she gets 5 or 6 right expressed as a percentage to 1 decimal place?
+
+Hint:  
+Let p = 0.5 and X be binomial
+
+Answer:  
+```{r}
+round(pbinom(4, prob=0.5, size=6, lower.tail=FALSE) * 100, 1)
+```
+
+## Q6
+Consider a uniform distribution. If we were to sample 100 draws from a uniform distribution (which has a mean of 0.5 and variance of 1/12) and take their mean, Xbar
+
+What is the approximate probability of getting as large as 0.51 or larger expressed to 3 decimal places?
+
+Hint:  
+Use the central limit theorem that says Xbar ~ N(mu, sigma^2^/n)
+
+Answer:  
+```{r}
+round(pnorm(0.51, mean=0.5, sd=sqrt(1/12/100), lower.tail=FALSE), 3)
+```
+
+## Q7
+If you roll ten standard dice, take their average, then repeat this process over and over and construct a histogram, what would be its variance expressed to 3 decimal places?
+
+Hint:  
+Var(Xbar) = sigma^2^/n
+
+Answer:  
+The answer will be 0.292 since the variance of the sampling distribution of the mean is sigma^2^/10 where sigma^2^ is the variance of a single die roll which is
+```{r}
+mean((1:6-3.5)^2 / 10)
+```
+
+## Q8
+The number of web hits to a site is Poisson with mean 16.5 per day. What is the probability of geting 20 or fewer in 2 days expressed as a percentage to one decimal place?
+
+Hint:  
+Let X be the number of hits in 2 days then X ~ Poisson(2Lambda)
+
+Answer:  
+```{r}
+round(ppois(20, lambda=16.5 * 2) * 100, 1)
+```
