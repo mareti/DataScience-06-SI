@@ -18,6 +18,7 @@ data(ToothGrowth)
 ```
 
 ## Summary of Data
+A preliminary exploration of the data better helps us understand what we are working with to allow us to perform analysis on the data. 
 ```{r}
 dim(ToothGrowth)
 names(ToothGrowth)
@@ -27,6 +28,8 @@ head(ToothGrowth)
 ```
 
 ## Comparison of Tooth Growth by supp and dose
+The first chart shows a comparison of the supplement types of the length versus the dose.  
+
 ```{r}
 ToothGrowth %>%
     ggplot(aes(x=factor(dose), y=len, fill=supp)) +
@@ -35,6 +38,10 @@ ToothGrowth %>%
     scale_fill_brewer() +
     theme_bw()
 ```
+
+The chart above shows a direct relationship between the lengths and the factors, i.e. higher doses will provide longer lengths. Additionally, orange juice overall produced longer teeth.  
+
+The next chart shows the same data represented as box plots. This shows the variability in the data and provides a more accurate representation of the results than simply previewing the length. 
 
 ```{r}
 ToothGrowth %>%
@@ -45,7 +52,22 @@ ToothGrowth %>%
     theme_bw()
 ```
 
-## Conclusion
+From the box plot the general conclusion is similar as our first chart but now we can see more variability within the data. 
 
+We can use a regression analysis to determine the effect supplement types have on tooth length, i.e. how much of the variance is because of the supplement type?
+
+```{r}
+fit = lm(len ~ dose+supp, data=ToothGrowth)
+summary(fit)
+```
+
+```{r}
+confint(fit)
+```
+
+This function gives a 95% confidence interval which provides the limits for which we can expect 95% of results from future experiemnts to fall in. 
+
+## Conclusion
+These findings tell us that there is indeed an impact of the supplement types and the winner is OJ!
 
 End of File
