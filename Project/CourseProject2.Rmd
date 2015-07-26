@@ -1,0 +1,51 @@
+---
+title: "Course Project II"
+output: 
+    html_document: 
+        keep_md: true
+---
+
+Muralidhar Areti  
+Jul 26, 2015
+
+## Tooth Growth Data
+The `ToothGrowth` data in `R` is a data frame of 60 observations with 3 variables that show the length of teeth in 10 guinea pigs provided with three dose levels of Vitamin C (0.5, 1 and 2mg) with each of two delivery methods, orange juice or ascorbic acid. 
+
+```{r}
+suppressPackageStartupMessages(library(dplyr))
+library(ggplot2)
+data(ToothGrowth)
+```
+
+## Summary of Data
+```{r}
+dim(ToothGrowth)
+names(ToothGrowth)
+str(ToothGrowth)
+summary(ToothGrowth)
+head(ToothGrowth)
+```
+
+## Comparison of Tooth Growth by supp and dose
+```{r}
+ToothGrowth %>%
+    ggplot(aes(x=factor(dose), y=len, fill=supp)) +
+    geom_bar(stat="identity") +
+    facet_grid(. ~ supp) + 
+    scale_fill_brewer() +
+    theme_bw()
+```
+
+```{r}
+ToothGrowth %>%
+    ggplot(aes(x=factor(dose), y=len, fill=supp)) + 
+    geom_boxplot() + 
+    facet_grid(. ~ supp) + 
+    scale_fill_brewer() + 
+    theme_bw()
+```
+
+## Conclusion
+
+
+End of File
